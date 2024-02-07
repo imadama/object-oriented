@@ -1,12 +1,10 @@
 import time
 
 class Charmander:
-    strength = ""
-    weakness = ""
-    def __init__(self, nickname):
+    def __init__(self, nickname, fire_strength, water_weakness):
         self.nickname = nickname
-        self.strength = "fire"
-        self.weakness = "water"
+        self.fire_strength = fire_strength
+        self.water_weakness = water_weakness
 
     def battle_cry(self):
         return f"{self.nickname.upper()}!!!"
