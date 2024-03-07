@@ -1,7 +1,16 @@
+using System;
+
 public class Charmander
 {
-    public void BattleCry()
+    public string Name { get; set; }
+
+    public Charmander()
     {
-        Console.WriteLine("Charmander says: Char-char!");
+        Name = "Charmander";
+    }
+
+    public void Roar()
+    {
+        Console.WriteLine("Charmander roars!");
     }
 }
