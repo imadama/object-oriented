@@ -1,7 +1,9 @@
-public class Charmander
+using System;
+
+class Charmander
 {
-    public void BattleCry()
+    public Charmander()
     {
-        Console.WriteLine("Charmander says: Char-char!");
+        Console.WriteLine("A wild Charmander appears!");
     }
 }
