@@ -1,36 +1,55 @@
+using System;
+
 public class Pokeball
 {
-	public Charmander? Charmander { get; private set; }
+    private Charmander _containedCharmander;
+    public bool IsOpen { get; private set; }
 
-	public Pokeball(Charmander? charmander = null)
-	{
-		Charmander = charmander;
-	}
+    public Pokeball()
+    {
+        _containedCharmander = null;
+        IsOpen = false;
+    }
 
-	public void Throw()
-	{
-		if (Charmander == null)
-		{
-			Console.WriteLine("The pokeball is empty.");
-		}
-		else
-		{
-			Console.WriteLine("The pokeball opens and releases Charmander!");
-			Charmander.BattleCry();
-			Charmander = null; // Releases the Charmander
-		}
-	}
+    public void Contain(Charmander charmander)
+    {
+        if (_containedCharmander == null && !IsOpen)
+        {
+            _containedCharmander = charmander;
+            Console.WriteLine("Charmander is now contained within the Pokeball.");
+        }
+        else
+        {
+            Console.WriteLine("The Pokeball is either open or already contains a Charmander.");
+        }
+    }
 
-	public void Return(Charmander charmander)
-	{
-		if (Charmander == null)
-		{
-			Charmander = charmander;
-			Console.WriteLine("Charmander is returned to its pokeball.");
-		}
-		else
-		{
-			Console.WriteLine("The pokeball already contains a Charmander.");
-		}
-	}
+    public void Throw()
+    {
+        if (_containedCharmander != null && !IsOpen)
+        {
+            IsOpen = true;
+            Console.WriteLine("Pokeball is thrown and opens up!");
+            _containedCharmander.Roar(); // Charmander wordt vrijgelaten
+            _containedCharmander = null;
+        }
+        else
+        {
+            Console.WriteLine("The Pokeball is empty or already open.");
+        }
+    }
+
+    public void Return(Charmander charmander)
+    {
+        if (_containedCharmander == null && IsOpen)
+        {
+            _containedCharmander = charmander;
+            IsOpen = false;
+            Console.WriteLine("Charmander is returned to the Pokeball, which closes again.");
+        }
+        else
+        {
+            Console.WriteLine("The Pokeball cannot contain more than one Charmander or is not open.");
+        }
+    }
 }

@@ -1,41 +1,57 @@
+using System;
 using System.Collections.Generic;
 
 public class Trainer
 {
-    public string Name { get; }
-    public List<Pokeball> Belt { get; }
+    public string Name { get; private set; }
+    private List<Pokeball> belt;
 
     public Trainer(string name)
     {
         Name = name;
-        Belt = new List<Pokeball>();
+        belt = new List<Pokeball>();
 
+        // Initialiseer de riem met zes Pokeballs, elk met een Charmander erin.
         for (int i = 0; i < 6; i++)
         {
-            Belt.Add(new Pokeball(new Charmander()));
+            Charmander charmander = new Charmander();
+            Pokeball pokeball = new Pokeball();
+            pokeball.Contain(charmander);
+            belt.Add(pokeball);
         }
     }
 
-    public void ThrowPokeball(int index)
+    public void ThrowPokeball(int pokeballNumber)
     {
-        if (index < 0 || index >= Belt.Count)
+        if (pokeballNumber < 1 || pokeballNumber > belt.Count)
         {
-            Console.WriteLine("Invalid pokeball index.");
+            Console.WriteLine("Invalid Pokeball number.");
             return;
         }
 
-        Console.WriteLine($"{Name} throws a pokeball!");
-        Belt[index].Throw();
+        // Vermindert met 1 omdat de lijstindexen bij 0 beginnen
+        belt[pokeballNumber - 1].Throw();
     }
 
-    public void ReturnCharmander(int index, Charmander charmander)
+    public void ReturnPokemonToPokeball(Charmander charmander, int pokeballNumber)
     {
-        if (index < 0 || index >= Belt.Count)
+        if (pokeballNumber < 1 || pokeballNumber > belt.Count)
         {
-            Console.WriteLine("Invalid pokeball index.");
+            Console.WriteLine("Invalid Pokeball number.");
             return;
         }
 
-        Belt[index].Return(charmander);
+        // Vermindert met 1 omdat de lijstindexen bij 0 beginnen
+        belt[pokeballNumber - 1].Return(charmander);
+    }
+
+    // Optioneel: Methode om extra validatie toe te voegen bij het toevoegen van een Pokeball.
+    public void AddPokeballToBelt(Pokeball pokeball)
+    {
+        if (belt.Count >= 6)
+        {
+            throw new InvalidOperationException("Cannot add more than six Pokeballs to the belt.");
+        }
+        belt.Add(pokeball);
     }
 }
